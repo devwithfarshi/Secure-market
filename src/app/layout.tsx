@@ -5,6 +5,11 @@ import Navbar from "@/components/sheard/Navbar";
 import { cn } from "@/lib/utils";
 
 const inter = Inter({ subsets: ["latin"] });
+export const metadata: Metadata = {
+  title: "Secure Market",
+  description:
+    "SecureMarket - A Modern Fullstack E-Commerce Marketplace for Digital Products",
+};
 
 export default function RootLayout({
   children,
