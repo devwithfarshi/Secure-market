@@ -5,14 +5,15 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import routenames from "@/data/rotues.data";
 import { cn } from "@/lib/utils";
-import { ArrowRight, Loader2 } from "lucide-react";
-import Link from "next/link";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { trpc } from "@/trpc/client";
 import {
   AuthCredentialvalidator,
   TAuthCredentialvalidator,
 } from "@/validators/Auth.schema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { ArrowRight, Loader2 } from "lucide-react";
+import Link from "next/link";
+import { useForm } from "react-hook-form";
 
 const SignUp = () => {
   const {
@@ -22,6 +23,9 @@ const SignUp = () => {
   } = useForm<TAuthCredentialvalidator>({
     resolver: zodResolver(AuthCredentialvalidator),
   });
+
+  const { data } = trpc.anyApiRoute.useQuery();
+  console.log("🚀 ~ SignUp ~ data:", data);
   const onSubmitForm = async ({
     email,
     password,
