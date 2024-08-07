@@ -2,7 +2,7 @@
 
 Built with the Next.js 14 App Router, tRPC, TypeScript, Payload & Tailwind
 
-![Project Image](./public/thumbnail.jpg)
+![Project Image](./public/hippo-email-sent.png)
 
 ## Features
 
