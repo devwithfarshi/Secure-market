@@ -4,6 +4,7 @@ const routenames = {
   cart: "/cart",
   signin: "/sign-in",
   signup: "/sign-up",
+  verify: "/verify",
   // admin
   admin: "/sell",
 };

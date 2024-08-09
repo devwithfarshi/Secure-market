@@ -1,17 +1,23 @@
-import { buildConfig } from "payload/config";
-import routenames from "./data/rotues.data";
+import { webpackBundler } from "@payloadcms/bundler-webpack";
 import { mongooseAdapter } from "@payloadcms/db-mongodb";
 import { slateEditor } from "@payloadcms/richtext-slate";
-import { webpackBundler } from "@payloadcms/bundler-webpack";
 import path from "path";
-
+import { buildConfig } from "payload/config";
+import { Users } from "./collections/user";
+import routenames from "./data/rotues.data";
+import dotenv from "dotenv";
+dotenv.config({
+  path: path.resolve(__dirname, "../.env"),
+});
+console.log(process.env.NEXT_PUBLIC_SERVER_URL);
 export default buildConfig({
   serverURL: process.env.NEXT_PUBLIC_SERVER_URL || "",
-  collections: [],
+  collections: [Users],
   routes: {
     admin: routenames.admin,
   },
   admin: {
+    user: "users",
     bundler: webpackBundler(),
     meta: {
       titleSuffix: " - Secure Market",

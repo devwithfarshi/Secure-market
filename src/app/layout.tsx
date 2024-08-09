@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/sheard/Navbar";
 import { cn } from "@/lib/utils";
 import Providers from "@/components/Layouts/Providers";
+import { Toaster } from "sonner";
 
 const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
@@ -28,6 +29,7 @@ export default function RootLayout({
             <div className="flex-grow flex-1">{children}</div>
           </Providers>
         </main>
+        <Toaster position="top-right" richColors />
       </body>
     </html>
   );

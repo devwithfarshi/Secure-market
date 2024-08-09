@@ -13,25 +13,46 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowRight, Loader2 } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
-
+import { toast } from "sonner";
+import { ZodError } from "zod";
 const SignUp = () => {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm<TAuthCredentialvalidator>({
     resolver: zodResolver(AuthCredentialvalidator),
   });
 
-  const { data } = trpc.anyApiRoute.useQuery();
-  console.log("🚀 ~ SignUp ~ data:", data);
+  const { mutate, isLoading: isSubmitting } =
+    trpc.auth.createPayloadUser.useMutation({
+      onError: (err) => {
+        if (err.data?.code === "CONFLICT") {
+          toast.error("This email is already in use. Sign in instead?");
+          return;
+        }
+        if (err instanceof ZodError) {
+          toast.error(err.issues[0].message);
+          return;
+        }
+        toast.error("An error occurred. Please try again later.");
+      },
+      onSuccess: ({ sentToEmail }) => {
+        toast.success(
+          `We've sent a verification link to ${sentToEmail}. Please check your inbox.`
+        );
+        router.push(`${routenames.verify}?to=${sentToEmail}`);
+      },
+    });
+
   const onSubmitForm = async ({
     email,
     password,
   }: TAuthCredentialvalidator) => {
-    console.log(email, password);
-    // TODO: send data to the server
+    mutate({ email, password });
   };
   return (
     <>
