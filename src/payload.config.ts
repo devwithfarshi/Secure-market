@@ -9,7 +9,6 @@ import dotenv from "dotenv";
 dotenv.config({
   path: path.resolve(__dirname, "../.env"),
 });
-console.log(process.env.NEXT_PUBLIC_SERVER_URL);
 export default buildConfig({
   serverURL: process.env.NEXT_PUBLIC_SERVER_URL || "",
   collections: [Users],

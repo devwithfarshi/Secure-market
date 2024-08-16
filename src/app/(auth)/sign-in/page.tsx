@@ -23,7 +23,12 @@ const SignIn = () => {
   const isSeller = searchParams.get("as") === "seller";
   const origin = searchParams.get("origin");
 
-  // TODO: start here and change the code below for the sign in page
+  const continueAsSeller = () => {
+    router.push("?as=seller");
+  };
+  const continueAsBuyer = () => {
+    router.replace(routenames.signin, undefined);
+  };
   const {
     register,
     handleSubmit,
@@ -32,32 +37,33 @@ const SignIn = () => {
     resolver: zodResolver(AuthCredentialvalidator),
   });
 
-  const { mutate, isLoading: isSubmitting } = trpc.auth.signin.useMutation({
-    // TODO: add signin into auth router
-    onError: (err) => {
-      if (err.data?.code === "CONFLICT") {
-        toast.error("This email is already in use. Sign in instead?");
-        return;
-      }
-      if (err instanceof ZodError) {
-        toast.error(err.issues[0].message);
-        return;
-      }
-      toast.error("An error occurred. Please try again later.");
-    },
-    onSuccess: ({ sentToEmail }) => {
-      toast.success(
-        `We've sent a verification link to ${sentToEmail}. Please check your inbox.`
-      );
-      router.push(`${routenames.verify}?to=${sentToEmail}`);
-    },
-  });
+  const { mutate: signIn, isLoading: isSubmitting } =
+    trpc.auth.signIn.useMutation({
+      onSuccess: () => {
+        toast.success("Signed in successfully.");
+        router.refresh();
+        if (origin) {
+          router.push(`/${origin}`);
+          return;
+        }
+        if (isSeller) {
+          router.push(routenames.admin);
+          return;
+        }
+        router.push(routenames.home);
+      },
+      onError: (err) => {
+        if (err.data?.code === "UNAUTHORIZED") {
+          toast.error("Invalid email or password.");
+        }
+      },
+    });
 
   const onSubmitForm = async ({
     email,
     password,
   }: TAuthCredentialvalidator) => {
-    mutate({ email, password });
+    signIn({ email, password });
   };
   return (
     <>
@@ -65,7 +71,9 @@ const SignIn = () => {
         <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
           <div className="flex flex-col items-center space-y-2 text-center">
             <Icons.logo className="size-20" />
-            <h1 className="text-2xl font-bold">Sign in to your account</h1>
+            <h1 className="text-2xl font-bold">
+              Sign in to your {isSeller && "seller"} account
+            </h1>
             <Link
               href={routenames.signup}
               className={buttonVariants({
@@ -138,6 +146,23 @@ const SignIn = () => {
                 </span>
               </div>
             </div>
+            {isSeller ? (
+              <Button
+                onClick={continueAsBuyer}
+                variant="secondary"
+                disabled={isSubmitting}
+              >
+                Continue as customer
+              </Button>
+            ) : (
+              <Button
+                variant="secondary"
+                disabled={isSubmitting}
+                onClick={continueAsSeller}
+              >
+                Continue as seller
+              </Button>
+            )}
           </div>
         </div>
       </div>
