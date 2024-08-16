@@ -9,7 +9,7 @@ import { trpc } from "@/trpc/client";
 import {
   AuthCredentialvalidator,
   TAuthCredentialvalidator,
-} from "@/validators/Auth.schema";
+} from "@/lib/validators/Auth.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowRight, Loader2 } from "lucide-react";
 import Link from "next/link";
