@@ -13,6 +13,7 @@ export const authRouter = router({
       // check if user already exists
       const { docs: users } = await payload.find({
         collection: "users",
+        overrideAccess: true,
         where: {
           email: {
             equals: email,
@@ -41,6 +42,7 @@ export const authRouter = router({
       const { email, password } = input;
       const { res } = ctx;
       const payload = await getPayloadClient();
+
       try {
         await payload.login({
           collection: "users",
