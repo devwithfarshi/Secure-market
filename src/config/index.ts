@@ -44,4 +44,4 @@ export const PRODUCT_CATEGORIES = [
 ];
 
 export type DefaultCurrency = "USD" | "EUR" | "GBP" | "BDT";
-export const DEFAULT_CURRENCY_FORMAT: DefaultCurrency = "BDT";
+export const DEFAULT_CURRENCY_FORMAT: DefaultCurrency = "USD";
