@@ -26,9 +26,8 @@ export const Orders: CollectionConfig = {
     {
       name: "_isPaid",
       type: "checkbox",
-      label: "Paid",
       access: {
-        read: ({ req }) => req.user?.role === "admin",
+        read: ({ req }) => req.user.role === "admin",
         create: () => false,
         update: () => false,
       },

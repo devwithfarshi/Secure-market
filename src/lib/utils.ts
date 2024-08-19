@@ -1,4 +1,4 @@
-import { DEFAULT_CURRENCY_FORMAT, DefaultCurrency } from "@/config";
+import { DEFAULT_CURRENCY_FORMAT, DefaultCurrency } from "../config";
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
