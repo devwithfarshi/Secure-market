@@ -1,6 +1,6 @@
 const routenames = {
   home: "/",
-  products: "/prodcuts",
+  products: "/products",
   cart: "/cart",
   signin: "/sign-in",
   signup: "/sign-up",

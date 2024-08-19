@@ -30,7 +30,7 @@ const ProductReel = (props: ProductReelProps) => {
 
   let map: (Product | null)[] = [];
   if (products && products.length) {
-    map = products;
+    map = products.map((item) => item as unknown as Product | null);
   } else if (isLoading) {
     map = new Array<null>(query.limit ?? FALLBACK_LIMIT).fill(null);
   }
