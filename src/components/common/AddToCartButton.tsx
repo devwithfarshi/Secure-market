@@ -3,27 +3,25 @@ import { Product } from "@/payload-types";
 import { Button } from "../ui/button";
 import { useEffect, useState } from "react";
 import { useCart } from "@/hooks/useCart";
+import { toast } from "sonner";
 
 const AddToCartButton = ({ product }: { product: Product }) => {
-  const { addItem } = useCart();
-  const [isSuccess, setIsSuccess] = useState<boolean>(false);
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      setIsSuccess(false);
-    }, 1500);
-    return () => clearTimeout(timeout);
-  }, [isSuccess]);
+  const { addItem, items } = useCart();
+  const isAdded = items.some((item) => item.product.id === product.id);
   return (
     <>
       <Button
         onClick={() => {
-          addItem(product);
-          setIsSuccess(true);
+          if (isAdded) {
+            toast.info("Item already added to cart.", { duration: 1000 });
+          } else {
+            addItem(product);
+          }
         }}
         size="lg"
         className="w-full"
       >
-        {isSuccess ? "Added!" : "Add to cart"}
+        {isAdded ? "Added!" : "Add to cart"}
       </Button>
     </>
   );
