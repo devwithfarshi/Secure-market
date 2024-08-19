@@ -20,7 +20,6 @@ export const authRouter = router({
           },
         },
       });
-      console.log(users);
       if (users.length !== 0) {
         throw new TRPCError({ code: "CONFLICT" });
       }

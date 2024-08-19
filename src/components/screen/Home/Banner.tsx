@@ -1,4 +1,5 @@
 import MaxWidthWrapper from "@/components/common/MaxWidthWrapper";
+import ProductReel from "@/components/common/ProductReel";
 import { Button, buttonVariants } from "@/components/ui/button";
 import routenames from "@/data/rotues.data";
 import { MoveRight } from "lucide-react";
@@ -26,7 +27,11 @@ const Banner = () => {
           </Button>
         </div>
       </div>
-      {/* TODO: List pordcuts */}
+      <ProductReel
+        query={{ limit: 4, sort: "desc" }}
+        title="Brand new"
+        href={routenames.products}
+      />
     </MaxWidthWrapper>
   );
 };

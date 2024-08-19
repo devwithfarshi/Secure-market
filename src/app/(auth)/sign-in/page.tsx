@@ -51,6 +51,7 @@ const SignIn = () => {
           return;
         }
         router.push(routenames.home);
+        router.refresh();
       },
       onError: (err) => {
         if (err.data?.code === "UNAUTHORIZED") {
