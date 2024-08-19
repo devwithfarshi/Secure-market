@@ -5,6 +5,7 @@ const routenames = {
   signin: "/sign-in",
   signup: "/sign-up",
   verify: "/verify",
+  thankYou: "/thank-you",
   // admin
   admin: "/sell",
 };
