@@ -2,17 +2,14 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/sheard/Navbar";
-import { cn } from "@/lib/utils";
+import { cn, constructMetadata } from "@/lib/utils";
 import Providers from "@/components/Layouts/Providers";
 import { Toaster } from "sonner";
+import Footer from "@/components/sheard/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
-export const metadata: Metadata = {
-  title: "Secure Market",
-  description:
-    "SecureMarket - A Modern Fullstack E-Commerce Marketplace for Digital Products",
-};
 
+export const metadata = constructMetadata();
 export default function RootLayout({
   children,
 }: {
@@ -27,6 +24,7 @@ export default function RootLayout({
           <Providers>
             <Navbar />
             <div className="flex-grow flex-1">{children}</div>
+            <Footer />
           </Providers>
         </main>
         <Toaster position="top-right" richColors duration={1500} />
