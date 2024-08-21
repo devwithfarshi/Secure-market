@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ["localhost", "secure-market.railway.internal"],
+    domains: ["localhost", "secure-market-production.up.railway.app"],
   },
 };
 
