@@ -17,6 +17,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { ZodError } from "zod";
+import { useEffect, useState } from "react";
 const SignIn = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -66,6 +67,11 @@ const SignIn = () => {
   }: TAuthCredentialvalidator) => {
     signIn({ email, password });
   };
+  useEffect(() => {
+    toast.info("Use 'demo' credentials to view the project.", {
+      duration: 5000,
+    });
+  }, []);
   return (
     <>
       <div className="container relative flex pt-20 flex-col items-center justify-center lg:px-0">
@@ -98,6 +104,7 @@ const SignIn = () => {
                     className={cn({
                       "focus-visible:ring-red-500": errors.email,
                     })}
+                    defaultValue={"demo@demo.com"}
                     placeholder="you@example.com"
                   />
                   {errors.email && (
@@ -114,6 +121,7 @@ const SignIn = () => {
                     className={cn({
                       "focus-visible:ring-red-500": errors.password,
                     })}
+                    defaultValue={"demo1234"}
                     placeholder="* * * * * * *"
                   />
                   {errors.password && (
